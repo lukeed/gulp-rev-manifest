@@ -1,7 +1,7 @@
 {
   "name": "gulp-rev-manifest",
   "version": "0.0.0",
-  "description": "Generate a rev-manifest file, mapping original filenames to versioned counterparts.",
+  "description": "Generate a rev-manifest file, mapping original paths to revisioned counterparts.",
   "license": "MIT",
   "repository": "lukeed/gulp-rev-manifest",
   "author": {
