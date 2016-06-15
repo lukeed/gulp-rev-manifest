@@ -9,7 +9,7 @@ Make sure to set the files to [never expire](http://developer.yahoo.com/performa
 This package expects you to have [`gulp-rev`](https://github.com/sindresorhus/gulp-rev) installed.
 
 ```
-$ npm install --save-dev gulp-rev-manifest
+$ npm install --save-dev gulp-revmanifest
 ```
 
 ## Usage
@@ -17,7 +17,7 @@ $ npm install --save-dev gulp-rev-manifest
 ```js
 var gulp = require('gulp');
 var rev = require('gulp-rev');
-var revManifest = require('gulp-rev-manifest');
+var revManifest = require('gulp-revmanifest');
 
 gulp.task('default', function () {
   return gulp.src('src/*.css')
@@ -75,7 +75,7 @@ custom transformer instead of the default `JSON` for the manifest file.
 ```js
 var gulp = require('gulp');
 var rev = require('gulp-rev');
-var revManifest = require('gulp-rev-manifest');
+var revManifest = require('gulp-revmanifest');
 
 gulp.task('default', function () {
   // by default, gulp would pick `assets/css` as the base,
@@ -103,7 +103,7 @@ By default, `rev-manifest.json` will be replaced as a whole. To merge with an ex
 ```js
 var gulp = require('gulp');
 var rev = require('gulp-rev');
-var revManifest = require('gulp-rev-manifest');
+var revManifest = require('gulp-revmanifest');
 
 gulp.task('default', function () {
   // by default, gulp would pick `assets/css` as the base,
