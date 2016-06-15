@@ -45,6 +45,8 @@ Default: `process.cwd()`
 
 Override the `base` of the manifest file.
 
+**Note:** This value is stripped from your destination path.
+
 #### options.cwd
 
 Type: `string`
@@ -107,11 +109,10 @@ gulp.task('default', function () {
   // by default, gulp would pick `assets/css` as the base,
   // so we need to set it explicitly:
   return gulp.src(['assets/css/*.css', 'assets/js/*.js'], {base: 'assets'})
-    .pipe(gulp.dest('build/assets'))
     .pipe(rev())
     .pipe(gulp.dest('build/assets'))
     .pipe(revManifest({
-      base: 'build/assets',
+      base: 'build/assets', // stripped from the destination path
       merge: true // merge with the existing manifest (if one exists)
     }))
     .pipe(gulp.dest('build/assets'));
