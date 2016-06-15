@@ -1,4 +1,4 @@
-# Integrating gulp-rev into your app
+# Integrating `gulp-rev-manifest` into your app
 
 Outlined below are two common approaches to integrating an asset manifest like the one **gulp-rev** outputs into an application.
 
