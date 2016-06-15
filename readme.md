@@ -33,14 +33,14 @@ gulp.task('default', function () {
 
 #### path
 
-Type: `string`
+Type: `string`<br>
 Default: `"rev-manifest.json"`
 
 Manifest file path.
 
 #### options.base
 
-Type: `string`
+Type: `string`<br>
 Default: `process.cwd()`
 
 Override the `base` of the manifest file.
@@ -49,21 +49,21 @@ Override the `base` of the manifest file.
 
 #### options.cwd
 
-Type: `string`
+Type: `string`<br>
 Default: `process.cwd()`
 
 Override the `cwd` (current working directory) of the manifest file.
 
 #### options.merge
 
-Type: `boolean`
+Type: `boolean`<br>
 Default: `false`
 
 Merge existing manifest file.
 
 #### options.transformer
 
-Type: `object`
+Type: `object`<br>
 Default: `JSON`
 
 An object with `parse` and `stringify` methods. This can be used to provide a
