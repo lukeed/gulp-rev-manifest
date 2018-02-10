@@ -55,13 +55,9 @@ module.exports = function (pth, opts) {
 
 	return through.obj(function (file, enc, cb) {
 		// ignore all non-rev'd files
-		if (!file.path || !file.revOrigPath) {
-			cb();
-			return;
-		}
-
+		var revisionsEnabled = file.path && file.revOrigPath;
 		var revisionedFile = relPath(file.base, file.path);
-		var originalFile = path.join(path.dirname(revisionedFile), path.basename(file.revOrigPath)).replace(/\\/g, '/');
+		var originalFile = revisionsEnabled ? path.join(path.dirname(revisionedFile), path.basename(file.revOrigPath)).replace(/\\/g, '/') : revisionedFile;;
 
 		manifest[originalFile] = revisionedFile;
 
@@ -89,7 +85,7 @@ module.exports = function (pth, opts) {
 				manifest = assign(oldManifest, manifest);
 			}
 
-			manifestFile.contents = new Buffer(opts.transformer.stringify(sortKeys(manifest), null, '  '));
+			manifestFile.contents = Buffer.from(opts.transformer.stringify(sortKeys(manifest), null, '  '));
 			this.push(manifestFile);
 			cb();
 		}.bind(this));
