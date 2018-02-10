@@ -18,7 +18,7 @@ it('should build a rev manifest file', function (cb) {
 
 	var file = new gutil.File({
 		path: 'unicorn-d41d8cd98f.css',
-		contents: new Buffer('')
+		contents: Buffer.from('')
 	});
 
 	file.revOrigPath = 'unicorn.css';
@@ -38,7 +38,7 @@ it('should allow naming the manifest file', function (cb) {
 
 	var file = new gutil.File({
 		path: 'unicorn-d41d8cd98f.css',
-		contents: new Buffer('')
+		contents: Buffer.from('')
 	});
 
 	file.revOrigPath = 'unicorn.css';
@@ -67,7 +67,7 @@ it('should append to an existing rev manifest file', function (cb) {
 
 	var file = new gutil.File({
 		path: 'unicorn-d41d8cd98f.css',
-		contents: new Buffer('')
+		contents: Buffer.from('')
 	});
 
 	file.revOrigPath = 'unicorn.css';
@@ -90,7 +90,7 @@ it('should not append to an existing rev manifest by default', function (cb) {
 
 	var file = new gutil.File({
 		path: 'unicorn-d41d8cd98f.css',
-		contents: new Buffer('')
+		contents: Buffer.from('')
 	});
 
 	file.revOrigPath = 'unicorn.css';
@@ -115,14 +115,14 @@ it('should sort the rev manifest keys', function (cb) {
 
 	var file = new gutil.File({
 		path: 'unicorn-d41d8cd98f.css',
-		contents: new Buffer('')
+		contents: Buffer.from('')
 	});
 
 	file.revOrigPath = 'unicorn.css';
 
 	var fileTwo = new gutil.File({
 		path: 'pony-d41d8cd98f.css',
-		contents: new Buffer('')
+		contents: Buffer.from('')
 	});
 
 	fileTwo.revOrigPath = 'pony.css';
@@ -149,7 +149,7 @@ it('should respect directories', function (cb) {
 		cwd: __dirname,
 		base: __dirname,
 		path: path.join(__dirname, 'foo', 'unicorn-d41d8cd98f.css'),
-		contents: new Buffer('')
+		contents: Buffer.from('')
 	});
 
 	file1.revOrigBase = __dirname;
@@ -161,7 +161,7 @@ it('should respect directories', function (cb) {
 		cwd: __dirname,
 		base: __dirname,
 		path: path.join(__dirname, 'bar', 'pony-d41d8cd98f.css'),
-		contents: new Buffer('')
+		contents: Buffer.from('')
 	});
 
 	file2.revOrigBase = __dirname;
@@ -191,7 +191,7 @@ it('should respect files coming from directories with different bases', function
 		cwd: __dirname,
 		base: path.join(__dirname, 'output'),
 		path: path.join(__dirname, 'output', 'foo', 'scriptfoo-d41d8cd98f.js'),
-		contents: new Buffer('')
+		contents: Buffer.from('')
 	});
 
 	file1.revOrigBase = path.join(__dirname, 'vendor1');
@@ -203,7 +203,7 @@ it('should respect files coming from directories with different bases', function
 		cwd: __dirname,
 		base: path.join(__dirname, 'output'),
 		path: path.join(__dirname, 'output', 'bar', 'scriptbar-d41d8cd98f.js'),
-		contents: new Buffer('')
+		contents: Buffer.from('')
 	});
 
 	file2.revOrigBase = path.join(__dirname, 'vendor2');
@@ -232,7 +232,7 @@ it('should use correct base path for each file', function (cb) {
 		cwd: 'app/',
 		base: 'app/',
 		path: path.join('app', 'foo', 'scriptfoo-d41d8cd98f.js'),
-		contents: new Buffer('')
+		contents: Buffer.from('')
 	});
 	fileFoo.revOrigPath = 'scriptfoo.js';
 
@@ -240,11 +240,32 @@ it('should use correct base path for each file', function (cb) {
 		cwd: 'assets/',
 		base: 'assets/',
 		path: path.join('assets', 'bar', 'scriptbar-d41d8cd98f.js'),
-		contents: new Buffer('')
+		contents: Buffer.from('')
 	});
 	fileBar.revOrigPath = 'scriptbar.js';
 
 	stream.write(fileFoo);
 	stream.write(fileBar);
+	stream.end();
+});
+
+it('should correctly work even if revisions are not enabled', function (cb) {
+	var stream = lib();
+
+	stream.on('data', function (newFile) {
+		assert.equal(newFile.relative, 'rev-manifest.json');
+		assert.deepEqual(
+			JSON.parse(newFile.contents.toString()),
+			{'unicorn.css': 'unicorn.css'}
+		);
+		cb();
+	});
+
+	var file = new gutil.File({
+		path: 'unicorn.css',
+		contents: Buffer.from('')
+	});
+
+	stream.write(file);
 	stream.end();
 });
